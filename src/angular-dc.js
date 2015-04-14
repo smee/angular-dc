@@ -87,7 +87,8 @@ angularDc.directive('dcChart', ['$timeout',
             eventHandlers.each(function(handler, evt) {
                 chart.on(evt, handler);
             });
-
+            // run the chain to enforce side effects (registration of handlers), ignore the result
+            eventHandlers.value();
             // Run the postSetupChart callback, if provided
             if (_.isFunction(options.postSetupChart)) {
                 options.postSetupChart(chart, options);

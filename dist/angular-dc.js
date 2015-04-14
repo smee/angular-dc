@@ -1,8 +1,8 @@
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module unless amdModuleId is set
-        define(['angular', 'dc', 'lodash', 'd3'], function(angular, dc, lodash, d3) {
-            return (root['angularDc'] = factory(angular, dc, lodash, d3));
+        define(['angular', 'dc', 'lodash', 'd3'], function(a0, b1, c2, d3) {
+            return (root['angularDc'] = factory(a0, b1, c2, d3));
         });
     } else if (typeof exports === 'object') {
         // Node. Does not work with strict CommonJS, but
@@ -89,6 +89,8 @@
                 eventHandlers.each(function(handler, evt) {
                     chart.on(evt, handler);
                 });
+                // run the chain to enforce side effects (registration of handlers), ignore the result
+                eventHandlers.value();
                 // Run the postSetupChart callback, if provided
                 if (_.isFunction(options.postSetupChart)) {
                     options.postSetupChart(chart, options);
